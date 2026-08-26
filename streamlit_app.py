@@ -46,14 +46,16 @@ if ingredients_list and name_on_order:
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
 
 import requests
+import pandas as pd
 import streamlit as st
 
-smoothiefroot_response = requests.get(
+response = requests.get(
     "https://my.smoothiefroot.com/api/fruit/watermelon"
 )
-if smoothiefroot_response.status_code == 200:
-    st.write(smoothiefroot_response.json())
+
+if response.status_code == 200:
+    smoothie_df = pd.json_normalize(response.json())
+    st.dataframe(smoothie_df)
 else:
-    st.error(f"API returned {smoothiefroot_response.status_code}")
-    st.write(smoothiefroot_response.text)
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width = true)
+    st.error(f"API returned {response.status_code}")
+    st.write(response.text)
