@@ -51,9 +51,9 @@ import streamlit as st
 smoothiefroot_response = requests.get(
     "https://my.smoothiefroot.com/api/fruit/watermelon"
 )
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width = true)
 if smoothiefroot_response.status_code == 200:
     st.write(smoothiefroot_response.json())
 else:
     st.error(f"API returned {smoothiefroot_response.status_code}")
     st.write(smoothiefroot_response.text)
+sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width = true)
