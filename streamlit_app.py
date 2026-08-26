@@ -47,4 +47,8 @@ if ingredients_list and name_on_order:
 
 import requests  
 smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon(https://my.smoothiefroot.com/api/fruit/watermelon)")  
-st.text(smoothiefroot_response.json())
+if smoothiefroot_response.status_code == 200:
+    st.write(smoothiefroot_response.json())
+else:
+    st.error(f"API returned {smoothiefroot_response.status_code}")
+    st.write(smoothiefroot_response.text)
